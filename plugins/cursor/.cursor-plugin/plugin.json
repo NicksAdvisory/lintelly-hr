@@ -1,0 +1,25 @@
+{
+  "name": "lintelly-hr-deutschland",
+  "displayName": "Lintelly HR Deutschland",
+  "version": "0.2.0",
+  "description": "German employment law for small companies, answered like an HR department: notice periods, employer costs, sick pay, maternity leave, contract clauses and workflows, with calculation and official source. Germany only.",
+  "author": {
+    "name": "Lintelly",
+    "email": "hello@lintelly.com",
+    "url": "https://lintelly.com"
+  },
+  "homepage": "https://lintelly.com/hr",
+  "repository": "https://github.com/NicksAdvisory/lintelly-hr-deutschland",
+  "license": "MIT",
+  "keywords": [
+    "hr",
+    "human resources",
+    "germany",
+    "german employment law",
+    "arbeitsrecht",
+    "payroll",
+    "small business",
+    "mcp"
+  ],
+  "logo": "assets/logo.png"
+}

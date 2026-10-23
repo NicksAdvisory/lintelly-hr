@@ -1,0 +1,18 @@
+{
+  "name": "lintelly",
+  "owner": {
+    "name": "Lintelly",
+    "email": "hello@lintelly.com"
+  },
+  "metadata": {
+    "description": "Lintelly HR Deutschland: German employment law for small companies",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "lintelly-hr-deutschland",
+      "source": "./plugins/cursor",
+      "description": "German employment law for small companies: notice periods, employer costs, sick pay, contracts, with calculation and official source. Germany only."
+    }
+  ]
+}

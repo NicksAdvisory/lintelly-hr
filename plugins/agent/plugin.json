@@ -11,5 +11,13 @@
   "homepage": "https://lintelly.com/hr",
   "repository": "https://github.com/NicksAdvisory/lintelly-hr-deutschland",
   "license": "MIT",
-  "keywords": ["hr", "human resources", "germany", "german employment law", "arbeitsrecht", "payroll", "small business"]
+  "keywords": [
+    "hr",
+    "human resources",
+    "germany",
+    "german employment law",
+    "arbeitsrecht",
+    "payroll",
+    "small business"
+  ]
 }

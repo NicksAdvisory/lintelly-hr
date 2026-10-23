@@ -83,7 +83,7 @@ npm run build
 node packages/mcp/dist/lintelly-hr-mcp-server.mjs --http
 ```
 
-Aufbau: `packages/kern` (Werte, Rechner, Abläufe), `packages/mcp` (Server, Werkzeuge, Prompts, Ressourcen), `plugins/claude` (Plugin mit Skills), `plugins/agent` (Agent Plugins für Kiro),
+Aufbau: `packages/kern` (Werte, Rechner, Abläufe), `packages/mcp` (Server, Werkzeuge, Prompts, Ressourcen), `plugins/claude` (Plugin mit Skills), `plugins/agent` (Agent Plugins für Kiro), `plugins/cursor` (Cursor-Plugin),
 `ops` (Betrieb auf hr.lintelly.com), `server.json` (MCP Registry), `Dockerfile`. Mitmachen: `CONTRIBUTING.md`.
 
 ## Lizenz

@@ -42,7 +42,7 @@ for f in $geaendert; do case "$f" in packages/kern/werkbank/lib/regeln/werte.ts|
 
 zweig="abgleich-$(date +%Y-%m)"
 git checkout -q -B "$zweig"
-git add packages/kern packages/mcp/package.json server.json plugins/claude/.claude-plugin/plugin.json plugins/agent/plugin.json .claude-plugin/marketplace.json CHANGELOG.md
+git add packages/kern packages/mcp/package.json server.json plugins/claude/.claude-plugin/plugin.json plugins/agent/plugin.json plugins/cursor/.cursor-plugin/plugin.json .cursor-plugin/marketplace.json .claude-plugin/marketplace.json CHANGELOG.md
 git -c user.name="Nick Schäfer" -c user.email="nick@nicksadvisory.com" commit -q -m "Abgleich $(date +%m/%Y): $dateien" || fehler "Commit gescheitert"
 git push -q -f -u origin "$zweig" || fehler "Push gescheitert"
 url=$(gh pr create --head "$zweig" --base main --title "Abgleich $(date +%m/%Y): Version $neu" \
