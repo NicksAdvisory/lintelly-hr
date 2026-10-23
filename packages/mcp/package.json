@@ -1,6 +1,6 @@
 {
   "name": "@lintelly/hr-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Lintelly HR: German HR department as an MCP server. Notice periods, employer costs, sick pay, maternity leave, contract clauses, HR workflows, with calculation and official source. No sign-in.",
   "mcpName": "com.lintelly/hr",
   "license": "MIT",

@@ -2,6 +2,11 @@
 
 Versionen nach SemVer. Jede Version geht über die Release-Pipeline auf npm, ghcr.io und hr.lintelly.com.
 
+## 0.1.3
+
+- Erstes npm-Paket `@lintelly/hr-mcp` (0.1.2 kam wegen des Tokens nicht auf npm).
+- GitHub Actions auf neue Versionen, Stammdaten und HR-Icon für Verzeichnisse.
+
 ## 0.1.2
 
 - npm-Paket `@lintelly/hr-mcp` für den lokalen Start über stdio (`npx -y @lintelly/hr-mcp`).
