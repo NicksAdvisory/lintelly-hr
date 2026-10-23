@@ -5,6 +5,7 @@
  */
 import { BBG_KV_MONAT, BBG_RV_MONAT, MINDESTLOHN, MINIJOB_GRENZE, SATZ_AV, SATZ_KV_PV, SATZ_RV_AV, WERTE, wertZu } from "@/lib/regeln/werte";
 import { mindestlohnLuecke } from "@/lib/regeln/mindestlohn";
+import { euro as euroDin } from "@/lib/format";
 import { SOFORTMELDUNG_BEREICHE, SOFORTMELDUNG_QUELLE } from "@/lib/sofortmeldung";
 import { VORLAGE_EINTRITT } from "@/lib/module/plaene";
 import { abgabenArbeitgeber } from "../../../kern/website/components/tools/minijob-logik";
@@ -16,7 +17,7 @@ import type { Werkzeug } from "../werkzeug";
 
 const cent = (x: number) => Math.round(x * 100) / 100;
 const satz = (x: number) => Math.round(x * 1e6) / 1e6;
-const euro = (x: number) => `${x.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+const euro = (x: number) => euroDin(x, { cent: true });
 
 type Posten = { name: string; satz: number; basis: number; betrag: number };
 const posten = (name: string, s: number, brutto: number, grenze: number): Posten => {

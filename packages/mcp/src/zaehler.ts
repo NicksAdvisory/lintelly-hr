@@ -24,7 +24,9 @@ function aufTag(t: string) {
   sichern();
   tag = t;
   const ordner = process.env.ZAEHLER_ORDNER;
-  zahlen = ordner && existsSync(datei(ordner, t)) ? (JSON.parse(readFileSync(datei(ordner, t), "utf8")) as Tag) : {};
+  zahlen = {};
+  // Eine kaputte Tagesdatei darf keinen Aufruf stören: dann zählt der Tag neu.
+  if (ordner && existsSync(datei(ordner, t))) try { zahlen = JSON.parse(readFileSync(datei(ordner, t), "utf8")) as Tag; } catch { zahlen = {}; }
 }
 
 /** baender null: der Aufruf ist gescheitert (Eingabe ungültig oder Rechnung abgelehnt). */
@@ -46,10 +48,14 @@ export function stand(): { tag: string; zahlen: Tag } { return { tag, zahlen }; 
 export function sichern() {
   const ordner = process.env.ZAEHLER_ORDNER;
   if (!ordner || !tag) return;
-  mkdirSync(ordner, { recursive: true });
   const ziel = datei(ordner, tag);
-  writeFileSync(`${ziel}.neu`, JSON.stringify(zahlen));
-  renameSync(`${ziel}.neu`, ziel);
+  try {
+    mkdirSync(ordner, { recursive: true });
+    writeFileSync(`${ziel}.neu`, JSON.stringify(zahlen));
+    renameSync(`${ziel}.neu`, ziel);
+  } catch {
+    // Volle Platte oder fehlende Rechte: die Zählung fällt aus, der Dienst läuft weiter.
+  }
 }
 
 /** Nur für Tests: Speicher leeren. */

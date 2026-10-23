@@ -87,3 +87,18 @@ describe("Prompts, Ressourcen, Anweisungen", () => {
     expect(ANWEISUNGEN.match(/Herausgeber ist Lintelly/g)).toHaveLength(1);
   });
 });
+
+describe("Zähler mit Datei", () => {
+  it("eine kaputte Tagesdatei stört keinen Aufruf", async () => {
+    const { mkdtempSync, writeFileSync } = await import("node:fs");
+    const { tmpdir } = await import("node:os");
+    const ordner = mkdtempSync(`${tmpdir()}/lhr-`);
+    writeFileSync(`${ordner}/2026-10-23.json`, "{kaputt");
+    process.env.ZAEHLER_ORDNER = ordner;
+    zuruecksetzen();
+    const r = await client.callTool({ name: "rechtswert", arguments: { kennung: "mindestlohn" } });
+    delete process.env.ZAEHLER_ORDNER;
+    expect(r.isError).toBeFalsy();
+    expect(stand().zahlen.rechtswert.aufrufe).toBe(1);
+  });
+});

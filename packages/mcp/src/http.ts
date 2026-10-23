@@ -74,7 +74,9 @@ export function httpServer(o: { bremse?: Bremse } = {}): HttpServer {
       res.on("close", () => { void transport.close(); void server.close(); });
       await server.connect(transport);
       await transport.handleRequest(req, res, body);
-    } catch {
+    } catch (err) {
+      // Nur die Art des Fehlers, nie die Anfrage.
+      console.error("Fehler", err instanceof Error ? err.name : "unbekannt");
       if (!res.headersSent) senden(res, 500, { error: "internal_error" });
       else res.end();
     }
