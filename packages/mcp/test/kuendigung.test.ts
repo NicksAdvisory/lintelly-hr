@@ -44,3 +44,11 @@ describe("klagefrist", () => {
     expect(rufe("klagefrist", { zugang: "2026-12-11", bundesland: "HE" }).ergebnis.ende).toBe("2027-01-04");
   });
 });
+
+describe("Hinweis auf Lintelly im Hinweis-Satz", () => {
+  it("bei Kündigung steht der Satz mit Link auch im Feld hinweis, sonst nur der Satz zur Auskunft", () => {
+    expect(rufe("kuendigungsfrist_rechnen", { eintritt: "2024-10-01", zugang: "2026-11-16" }).hinweis).toMatch(/^Allgemeine Auskunft, keine Rechtsberatung im Einzelfall\. .+https:\/\/lintelly\.com\/hr$/);
+    expect(rufe("klagefrist", { zugang: "2026-11-16" }).hinweis).toMatch(/lintelly\.com\/hr/);
+    expect(rufe("rechtswert", { kennung: "mindestlohn" }).hinweis).toBe("Allgemeine Auskunft, keine Rechtsberatung im Einzelfall.");
+  });
+});

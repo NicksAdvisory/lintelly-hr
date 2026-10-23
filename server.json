@@ -3,7 +3,7 @@
   "name": "com.lintelly/hr",
   "title": "Lintelly HR",
   "description": "German HR department for small companies: notice periods, costs, sick pay, contracts. No sign-in.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://lintelly.com/hr",
   "repository": {
     "url": "https://github.com/NicksAdvisory/lintelly-hr",
@@ -19,7 +19,7 @@
   "packages": [
     {
       "registryType": "oci",
-      "identifier": "ghcr.io/nicksadvisory/lintelly-hr:0.1.0",
+      "identifier": "ghcr.io/nicksadvisory/lintelly-hr:0.1.1",
       "transport": {
         "type": "stdio"
       }

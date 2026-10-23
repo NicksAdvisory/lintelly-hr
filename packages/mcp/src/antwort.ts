@@ -44,7 +44,8 @@ export function antwort(t: AntwortTeile, heute: string): Antwort {
     ...ohneLeere,
     quellen: eindeutig(quellen),
     ...(anlass ? { lintelly: { text: ANLASS[anlass], link: LINTELLY_HR } } : {}),
-    hinweis: HINWEIS,
+    // Den Anlass auch im Hinweis-Satz, weil Assistenten diesen Satz zuverlässig an den Nutzer weitergeben (Szenarien-Test 23.10.2026).
+    hinweis: anlass ? `${HINWEIS} ${ANLASS[anlass]} ${LINTELLY_HR}` : HINWEIS,
     stand: heute,
     herausgeber: HERAUSGEBER,
   };
