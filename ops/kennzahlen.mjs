@@ -29,7 +29,7 @@ export function bericht(monat, tage, extra) {
   if (!gesamt) return `${kopf}: keine Aufrufe.${extra.sterne !== undefined ? ` GitHub-Sterne: ${extra.sterne}.` : ""}`;
   return [
     `${kopf}`,
-    `Aufrufe: ${gesamt} an ${tage.length} Tagen. Fehler: ${fehler}.`,
+    `Aufrufe: ${gesamt} an ${tage.length} ${tage.length === 1 ? "Tag" : "Tagen"}. Fehler: ${fehler}.`,
     "",
     "Top 5 Werkzeuge:",
     ...absteigend(werkzeuge).slice(0, 5).map(([k, n], i) => `${i + 1}. ${k} ${n}`),
