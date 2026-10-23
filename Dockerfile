@@ -1,5 +1,5 @@
 # Lintelly HR als Container: ohne Schalter stdio (Docker MCP Catalog), mit --http Streamable HTTP auf Port 8787.
-FROM node:22-alpine AS bau
+FROM node:25-alpine AS bau
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY packages/kern/package.json packages/kern/
@@ -8,7 +8,7 @@ RUN npm ci --ignore-scripts
 COPY packages packages
 RUN npm run build
 
-FROM node:22-alpine
+FROM node:25-alpine
 LABEL org.opencontainers.image.source="https://github.com/NicksAdvisory/lintelly-hr" \
       org.opencontainers.image.description="Lintelly HR: German HR department as an MCP server" \
       org.opencontainers.image.licenses="MIT" \
