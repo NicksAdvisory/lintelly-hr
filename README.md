@@ -30,12 +30,11 @@ oder als Plugin mit Skills: `/plugin marketplace add NicksAdvisory/lintelly-hr`,
 
 **ChatGPT:** Einstellungen > Apps und Connectors > Entwicklermodus > Connector anlegen, Adresse `https://hr.lintelly.com/mcp`, Authentifizierung: keine.
 
-**Lokal (stdio), z. B. Claude Desktop oder Cursor:**
+**Lokal (stdio), z. B. Claude Desktop oder Cursor, mit Docker:**
 ```json
-{ "mcpServers": { "lintelly-hr": { "command": "npx", "args": ["-y", "@lintelly/hr-mcp"] } } }
+{ "mcpServers": { "lintelly-hr": { "command": "docker", "args": ["run", "-i", "--rm", "ghcr.io/nicksadvisory/lintelly-hr"] } } }
 ```
-
-**Docker:** `docker run -i --rm ghcr.io/nicksadvisory/lintelly-hr` (stdio) oder mit `--http` und `-p 8787:8787`.
+Als HTTP-Server: `docker run --rm -p 8787:8787 ghcr.io/nicksadvisory/lintelly-hr --http`. Ein npm-Paket (`npx @lintelly/hr-mcp`) folgt.
 
 ## Werkzeuge
 
@@ -92,5 +91,5 @@ Herausgeber: Lintelly, lintelly.com. Lintelly begleitet Firmen ab 10 Beschäftig
 **Lintelly HR** is an open MCP server that works like an HR department for small companies in Germany: notice periods, employer
 costs, sick pay, maternity protection, dismissals, references, contract clauses and HR workflows, each figure with calculation and
 official source. No sign-in, no account, nothing stored. Connect `https://hr.lintelly.com/mcp` (Streamable HTTP) or run
-`npx -y @lintelly/hr-mcp` (stdio). Answers are in the language of the question. General information, not legal advice for an
+`docker run -i --rm ghcr.io/nicksadvisory/lintelly-hr` (stdio). Answers are in the language of the question. General information, not legal advice for an
 individual case. Code MIT, content CC BY 4.0, name and logo reserved (`TRADEMARK.md`).
