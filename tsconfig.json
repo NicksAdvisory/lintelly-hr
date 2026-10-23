@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "paths": { "@/*": ["./packages/kern/werkbank/*"] }
+  },
+  "include": ["packages/kern/werkbank/lib", "packages/kern/website/components", "packages/kern/website/lib", "packages/mcp/src", "packages/mcp/test", "scripts"]
+}

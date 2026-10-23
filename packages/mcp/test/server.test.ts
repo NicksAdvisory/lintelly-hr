@@ -1,0 +1,89 @@
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { ANWEISUNGEN, mcpServer } from "../src/server";
+import { stand, zuruecksetzen } from "../src/zaehler";
+
+/** Alle 24 Werkzeuge von lintelly.com/tools und das Werkzeug, das sie hier abdeckt (Nick 23.10.2026: „alles rein“). */
+const WEBSITE: Record<string, string> = {
+  "kuendigungsfrist-rechner": "kuendigungsfrist_rechnen", "urlaubsanspruch-rechner": "urlaubsanspruch", "arbeitszeugnis-generator": "arbeitszeugnis",
+  "stellenanzeigen-generator": "stellenanzeige_check", "arbeitsvertrag-check": "nachweis_pflichtangaben", "befristung-rechner": "befristung",
+  "mutterschutz-rechner": "mutterschutz", "abfindungsrechner": "abfindung_faustformel", "pausen-rechner": "pausen", "bem-pflicht-rechner": "bem_pflicht",
+  "elternzeit-fristenrechner": "elternzeit_fristen", "interviewfragen-generator": "interviewfragen_check", "schwellenwerte-check": "schwellen_check",
+  "kuendigungsschreiben-generator": "kuendigungsschreiben", "probezeit-rechner": "probezeit", "entgeltfortzahlung-rechner": "entgeltfortzahlung",
+  "abmahnung-generator": "abmahnung", "minijob-rechner": "minijob", "aufbewahrungsfristen-rechner": "aufbewahrungsfristen",
+  "urlaubsabgeltung-rechner": "urlaubsabgeltung", "urlaubsverfall-hinweis-generator": "urlaubsverfall_hinweis",
+  "mitarbeitergespraech-leitfaden": "mitarbeitergespraech_leitfaden", "sonderkuendigungsschutz-check": "sonderkuendigungsschutz_check", "ausgleichsabgabe-rechner": "ausgleichsabgabe",
+};
+/** Die acht Werkzeuge aus dem Wissen-Konzept; checkliste ging in ablauf auf (Plan Abschnitt 2). */
+const WISSEN = ["kuendigungsfrist_rechnen", "rechtswerte_suchen", "rechtswert", "vertragsbausteine_suchen", "vertragsbaustein", "klausel_pruefen", "workflow_vorlage", "ablauf"];
+const PLAN = ["klagefrist", "arbeitgeberkosten", "mindestlohn_check", "sofortmeldepflicht", "frist_merken", "kuendigung_pflichtangaben", "rechtsaenderungen"];
+
+let client: Client;
+beforeAll(async () => {
+  const [a, b] = InMemoryTransport.createLinkedPair();
+  await mcpServer(() => new Date("2026-10-23T10:00:00Z")).connect(b);
+  client = new Client({ name: "test", version: "1" });
+  await client.connect(a);
+});
+afterAll(() => client.close());
+
+const text = (r: any) => JSON.parse((r.content as { text: string }[])[0].text);
+
+describe("Werkzeuge", () => {
+  it("deckt alle 24 Website-Werkzeuge, die 8 Wissen-Werkzeuge und die Werkzeuge des Plans ab", async () => {
+    const namen = (await client.listTools()).tools.map((t) => t.name);
+    for (const n of [...Object.values(WEBSITE), ...WISSEN, ...PLAN]) expect(namen, n).toContain(n);
+    expect(Object.keys(WEBSITE)).toHaveLength(24);
+    expect(new Set(namen).size).toBe(namen.length);
+  });
+  it("jedes Werkzeug: Titel, Annotationen, Beschreibung, keine unbekannten Felder, kein Feld für Namen", async () => {
+    for (const t of (await client.listTools()).tools) {
+      expect(t.title, t.name).toBeTruthy();
+      expect(t.annotations, t.name).toEqual({ title: t.title, readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
+      expect(t.description!.length, t.name).toBeGreaterThan(80);
+      expect(t.inputSchema.additionalProperties, t.name).toBe(false);
+      expect(Object.keys(t.inputSchema.properties ?? {}).join(" "), t.name).not.toMatch(/\b(name|vorname|nachname|email|e_mail|anschrift|adresse|telefon|geburtsname)\b/i);
+    }
+  });
+  it("Antwortformat: Ergebnis, Quellen, Hinweis, Stand, Herausgeber", async () => {
+    const a = text(await client.callTool({ name: "rechtswert", arguments: { kennung: "mindestlohn" } }));
+    expect(a).toMatchObject({ hinweis: "Allgemeine Auskunft, keine Rechtsberatung im Einzelfall.", stand: "2026-10-23", herausgeber: "Lintelly, lintelly.com" });
+    expect(a.ergebnis.wert).toBe("13,90 €");
+  });
+  it("ungültige Eingabe wird abgelehnt und als Fehler gezählt, ohne Rohwert", async () => {
+    zuruecksetzen();
+    const r = await client.callTool({ name: "kuendigungsfrist_rechnen", arguments: { eintritt: "2025-01-01", zugang: "2026-10-07", name: "Tom Meier" } });
+    expect(r.isError).toBe(true);
+    expect(stand().zahlen.kuendigungsfrist_rechnen).toEqual({ aufrufe: 0, fehler: 1, baender: {} });
+    expect(JSON.stringify(stand())).not.toMatch(/Tom|Meier/);
+  });
+  it("Zähler: nur Werkzeug, Tag und Bänder, nie Beträge oder Daten", async () => {
+    zuruecksetzen();
+    await client.callTool({ name: "arbeitgeberkosten", arguments: { art: "vollzeit", brutto_monat: 4321, stichtag: "2026-11-01" } });
+    await client.callTool({ name: "kuendigungsfrist_rechnen", arguments: { eintritt: "2019-03-01", zugang: "2026-11-15", bundesland: "HE" } });
+    const s = stand();
+    expect(s.zahlen.arbeitgeberkosten).toEqual({ aufrufe: 1, fehler: 0, baender: { art: { vollzeit: 1 } } });
+    expect(s.zahlen.kuendigungsfrist_rechnen.baender).toEqual({ land: { HE: 1 } });
+    expect(JSON.stringify(s)).not.toMatch(/4321|2019-03-01|2026-11-15/);
+  });
+});
+
+describe("Prompts, Ressourcen, Anweisungen", () => {
+  it("vier Prompts wie im Plan", async () => {
+    const p = (await client.listPrompts()).prompts.map((x) => x.title);
+    expect(p).toEqual(["HR-Sprechstunde", "Erste Einstellung", "Jemand ist krank", "Kündigung vorbereiten"]);
+    const g = await client.getPrompt({ name: "erste_einstellung", arguments: { beginn: "2026-12-01", stunden: "20" } });
+    expect((g.messages[0].content as { text: string }).text).toMatch(/2026-12-01[\s\S]*ablauf mit art erste_einstellung/);
+  });
+  it("Rechtswerte als JSON mit 215 öffentlichen Werten, Abläufe als Markdown", async () => {
+    const r = (await client.listResources()).resources;
+    expect(r.map((x) => x.uri)).toContain("lintelly-hr://rechtswerte");
+    expect(r.filter((x) => x.mimeType === "text/markdown").length).toBe(10);
+    const inhalt = await client.readResource({ uri: "lintelly-hr://rechtswerte" });
+    expect(JSON.parse((inhalt.contents[0] as { text: string }).text).werte).toHaveLength(215);
+  });
+  it("Lintelly steht in den Anweisungen genau einmal als Herausgeber", () => {
+    expect(ANWEISUNGEN.match(/Herausgeber ist Lintelly/g)).toHaveLength(1);
+  });
+});

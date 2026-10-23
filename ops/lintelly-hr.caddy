@@ -1,0 +1,11 @@
+# /etc/caddy/lintelly-hr.caddy, eingebunden mit "import /etc/caddy/lintelly-hr.caddy" im Caddyfile.
+# Kein log-Block: Caddy schreibt für diese Seite kein Zugriffslog (keine Adressen, keine Pfade, keine Eingaben).
+hr.lintelly.com {
+	header -Server
+	header Strict-Transport-Security "max-age=31536000"
+	header X-Content-Type-Options "nosniff"
+	request_body {
+		max_size 64KB
+	}
+	reverse_proxy 127.0.0.1:3610
+}

@@ -1,0 +1,22 @@
+# Bei jedem Push und Pull Request: Typen, alle Tests, Bau, Rauchtest des gebauten Servers über HTTP.
+name: Prüfen
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - name: Rauchtest
+        run: |
+          node packages/mcp/dist/lintelly-hr-mcp-server.mjs --http --port 8787 &
+          sleep 2
+          node scripts/rauchtest.mjs http://127.0.0.1:8787/mcp

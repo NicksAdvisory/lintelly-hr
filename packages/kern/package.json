@@ -1,0 +1,8 @@
+{
+  "name": "@lintelly/hr-kern",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rechtswerte, Rechner, Vertragsbausteine und Abläufe von Lintelly, wörtlich aus Werkbank und lintelly.com (scripts/abgleich.mjs).",
+  "license": "MIT",
+  "type": "module"
+}

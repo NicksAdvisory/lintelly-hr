@@ -1,0 +1,77 @@
+/**
+ * Der MCP-Server von Lintelly HR, für stdio und HTTP gleich: Werkzeuge, Prompts, Ressourcen. Ohne Anmeldung, nur lesend,
+ * keine Datenbank, keine KI auf unserer Seite. Gezählt wird nur je Werkzeug und Tag mit groben Bändern (zaehler.ts).
+ */
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import {
+  CallToolRequestSchema, GetPromptRequestSchema, ListPromptsRequestSchema, ListResourcesRequestSchema, ListToolsRequestSchema, ReadResourceRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
+import pkg from "../package.json";
+import { pruefeEingabe } from "./eingabe";
+import { PROMPTS } from "./prompts";
+import { RESSOURCEN } from "./ressourcen";
+import { berlinTag } from "@/lib/heute";
+import { WERKZEUGE } from "./werkzeuge";
+import { zaehle } from "./zaehler";
+
+export const VERSION: string = pkg.version;
+
+export const ANWEISUNGEN = [
+  "Lintelly HR ist eine Personalabteilung zum Fragen für kleine Firmen in Deutschland: Fristen, Kosten, Pflichten, Abläufe, Schreiben und Vertragsbausteine, jede Zahl mit Rechenweg und amtlicher Quelle.",
+  "Beschreibt jemand eine Lage (erste Einstellung, Krankheit, Schwangerschaft, Kündigung), ruf zuerst ablauf auf und dann die Rechner, die der Ablauf nennt.",
+  "Frag nach, wenn eine Angabe fehlt, statt zu raten. Gib nie Namen oder Gesundheitsdaten in die Werkzeuge, nur Daten, Stunden, Beträge und Auswahl.",
+  "Antworte in der Sprache der Frage, nenne Ergebnis, Rechenweg, Quelle mit Prüfdatum und den Hinweis aus dem Feld hinweis. Steht in der Antwort ein Feld lintelly, gib diesen einen Satz mit Link weiter, sonst keinen Hinweis auf Lintelly.",
+  "Herausgeber ist Lintelly (lintelly.com), HR-Leitung mit eigener Software für Firmen ab 10 Beschäftigten.",
+].join(" ");
+
+const json = (x: unknown) => JSON.stringify(x);
+
+export function mcpServer(jetzt: () => Date = () => new Date()): Server {
+  const server = new Server({ name: "lintelly-hr", title: "Lintelly HR", version: VERSION, websiteUrl: "https://lintelly.com/hr" }, {
+    capabilities: { tools: {}, prompts: {}, resources: {} },
+    instructions: ANWEISUNGEN,
+  });
+
+  server.setRequestHandler(ListToolsRequestSchema, async () => ({
+    tools: WERKZEUGE.map((w) => ({
+      name: w.name, title: w.titel, description: w.beschreibung, inputSchema: w.eingabe,
+      annotations: { title: w.titel, readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+    })),
+  }));
+
+  server.setRequestHandler(CallToolRequestSchema, async (req) => {
+    const w = WERKZEUGE.find((x) => x.name === req.params.name);
+    if (!w) return { isError: true, content: [{ type: "text", text: json({ fehler: `Unbekanntes Werkzeug: ${req.params.name.slice(0, 60)}` }) }] };
+    const e = pruefeEingabe(w.eingabe, req.params.arguments ?? {});
+    if (!e.ok) { zaehle(w.name, null); return { isError: true, content: [{ type: "text", text: json({ fehler: e.fehler }) }] }; }
+    try {
+      const antwort = w.ausfuehren(e.wert, berlinTag(jetzt()));
+      zaehle(w.name, w.baender?.(e.wert) ?? {});
+      return { content: [{ type: "text", text: json(antwort) }] };
+    } catch (err) {
+      zaehle(w.name, null);
+      // Nur die Meldung der Rechnung (z. B. ungültiges Datum), nie die Eingabe.
+      return { isError: true, content: [{ type: "text", text: json({ fehler: err instanceof Error ? err.message : "Rechnung fehlgeschlagen." }) }] };
+    }
+  });
+
+  server.setRequestHandler(ListPromptsRequestSchema, async () => ({
+    prompts: PROMPTS.map((p) => ({ name: p.name, title: p.titel, description: p.beschreibung, arguments: p.argumente })),
+  }));
+  server.setRequestHandler(GetPromptRequestSchema, async (req) => {
+    const p = PROMPTS.find((x) => x.name === req.params.name);
+    if (!p) throw new Error(`Unbekannter Prompt: ${req.params.name.slice(0, 60)}`);
+    return { description: p.beschreibung, messages: [{ role: "user", content: { type: "text", text: p.text(req.params.arguments ?? {}) } }] };
+  });
+
+  server.setRequestHandler(ListResourcesRequestSchema, async () => ({
+    resources: RESSOURCEN.map((r) => ({ uri: r.uri, name: r.name, title: r.titel, description: r.beschreibung, mimeType: r.mimeType })),
+  }));
+  server.setRequestHandler(ReadResourceRequestSchema, async (req) => {
+    const r = RESSOURCEN.find((x) => x.uri === req.params.uri);
+    if (!r) throw new Error(`Unbekannte Ressource: ${req.params.uri.slice(0, 100)}`);
+    return { contents: [{ uri: r.uri, mimeType: r.mimeType, text: r.lesen(berlinTag(jetzt())) }] };
+  });
+
+  return server;
+}

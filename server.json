@@ -1,0 +1,14 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.lintelly/hr",
+  "title": "Lintelly HR",
+  "description": "German HR department for small companies: notice periods, costs, sick pay, contracts. No sign-in.",
+  "version": "0.1.0",
+  "websiteUrl": "https://lintelly.com/hr",
+  "repository": { "url": "https://github.com/NicksAdvisory/lintelly-hr", "source": "github", "subfolder": "packages/mcp" },
+  "remotes": [{ "type": "streamable-http", "url": "https://hr.lintelly.com/mcp" }],
+  "packages": [
+    { "registryType": "npm", "identifier": "@lintelly/hr-mcp", "version": "0.1.0", "transport": { "type": "stdio" } },
+    { "registryType": "oci", "identifier": "ghcr.io/nicksadvisory/lintelly-hr:0.1.0", "transport": { "type": "stdio" } }
+  ]
+}

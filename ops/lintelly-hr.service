@@ -1,0 +1,26 @@
+# /etc/systemd/system/lintelly-hr.service auf ops-01 (nie auf dem Kunden-Server). Startet die jeweils ausgerollte Fassung.
+[Unit]
+Description=Lintelly HR (offener MCP-Server, hr.lintelly.com)
+After=network.target
+
+[Service]
+User=nick
+UMask=0077
+WorkingDirectory=/home/nick/lintelly-hr
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=3610
+Environment=ZAEHLER_ORDNER=/home/nick/lintelly-hr/zaehler
+EnvironmentFile=-/home/nick/lintelly-hr/env
+ExecStart=/usr/bin/node /home/nick/lintelly-hr/aktuell/lintelly-hr-mcp-server.mjs --http
+Restart=on-failure
+RestartSec=3
+MemoryMax=300M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/nick/lintelly-hr/zaehler
+
+[Install]
+WantedBy=multi-user.target

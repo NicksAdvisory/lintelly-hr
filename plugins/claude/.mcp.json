@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "lintelly-hr": { "type": "http", "url": "https://hr.lintelly.com/mcp" }
+  }
+}

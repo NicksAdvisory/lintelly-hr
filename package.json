@@ -1,0 +1,22 @@
+{
+  "name": "lintelly-hr",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/kern", "packages/mcp"],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:werkbank && npm run test:website && vitest run",
+    "test:werkbank": "cd packages/kern/werkbank && vitest run",
+    "test:website": "cd packages/kern/website && for t in scripts/test-*.mjs; do node $t > /dev/null || exit 1; done && echo 'Website-Tests grün'",
+    "check": "npm run typecheck && npm test && node scripts/abgleich.mjs --pruefen",
+    "build": "npm run build -w @lintelly/hr-mcp",
+    "abgleich": "node scripts/abgleich.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "esbuild": "0.28.2",
+    "typescript": "^5",
+    "vitest": "5.0.5"
+  },
+  "engines": { "node": ">=22.18" }
+}

@@ -1,0 +1,17 @@
+# Wöchentlich: der gehostete Server gegen den MCP Inspector und jedes Werkzeug einmal, Antwortzeit unter 2 Sekunden.
+name: Kompatibilität
+on:
+  schedule: [{ cron: "17 6 * * 1" }]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx -y @modelcontextprotocol/inspector@2.10.1 --cli https://hr.lintelly.com/mcp --transport http --method tools/list > /dev/null
+      - run: node scripts/rauchtest.mjs https://hr.lintelly.com/mcp

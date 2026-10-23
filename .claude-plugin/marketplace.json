@@ -1,0 +1,15 @@
+{
+  "name": "lintelly",
+  "owner": { "name": "Lintelly", "email": "support@lintelly.com", "url": "https://lintelly.com" },
+  "metadata": { "description": "Plugins von Lintelly: Personalabteilung für kleine Firmen in Deutschland." },
+  "plugins": [
+    {
+      "name": "lintelly-hr",
+      "source": "./plugins/claude",
+      "version": "0.1.0",
+      "description": "Personalabteilung für kleine Firmen in Deutschland: Fristen, Kosten, Krankheit, Mutterschutz, Kündigung, Verträge, mit Rechenweg und amtlicher Quelle. Ohne Anmeldung.",
+      "category": "business",
+      "homepage": "https://lintelly.com/hr"
+    }
+  ]
+}
