@@ -5,7 +5,6 @@ Versionen nach SemVer. Jede Version geht über die Release-Pipeline auf npm, ghc
 ## 0.1.1
 
 - Der Hinweis auf menschliche Prüfung bei Vertrag, Kündigung und Abmahnung steht jetzt auch im Feld `hinweis`, das Assistenten zuverlässig weitergeben.
-- Zählerdatei: eine kaputte Datei oder volle Platte stört keinen Aufruf mehr.
 
 ## 0.1.0
 
