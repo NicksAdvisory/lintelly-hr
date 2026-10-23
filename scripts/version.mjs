@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Neue Version an allen Stellen setzen: npm-Paket, server.json, Claude-Plugin, Marktplatz, Changelog-Überschrift.
+// Neue Version an allen Stellen setzen: npm-Paket, server.json, Claude-Plugin, Agent-Plugin (Kiro), Marktplatz, Changelog-Überschrift.
 // Aufruf: node scripts/version.mjs 0.2.0   Danach Changelog-Text ergänzen, committen, auf main pushen: die Pipeline macht das Release.
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -9,6 +9,7 @@ const json = (f, setze) => { const d = JSON.parse(readFileSync(f, "utf8")); setz
 json("packages/mcp/package.json", (d) => { d.version = v; });
 json("server.json", (d) => { d.version = v; for (const p of d.packages) { if (p.registryType === "npm") p.version = v; else p.identifier = p.identifier.replace(/:[^:]+$/, `:${v}`); } });
 json("plugins/claude/.claude-plugin/plugin.json", (d) => { d.version = v; });
+json("plugins/agent/plugin.json", (d) => { d.version = v; });
 json(".claude-plugin/marketplace.json", (d) => { d.plugins[0].version = v; });
 const log = readFileSync("CHANGELOG.md", "utf8");
 if (!log.includes(`## ${v}`)) writeFileSync("CHANGELOG.md", log.replace(/\n## /, `\n## ${v}\n\n- \n\n## `));

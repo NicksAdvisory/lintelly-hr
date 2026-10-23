@@ -65,7 +65,8 @@ Versand ein Mensch prüfen sollte.
 - Keine Anmeldung, keine Datenbank, keine KI auf unserer Seite. Die Werkzeuge rechnen nur.
 - Die Werkzeuge haben keine Felder für Namen. Eingaben werden nicht gespeichert und nicht geloggt.
 - Gezählt werden nur Aufrufe je Werkzeug und Tag mit groben Bändern (Firmengröße 1, 2 bis 4, 5 bis 9, 10+; Beschäftigungsart; Bundesland; Art des Ablaufs).
-- Datenschutzerklärung: https://lintelly.com/datenschutz
+- Datenschutzerklärung (Privacy Policy): https://lintelly.com/datenschutz#lintelly-hr
+- Kontakt und Support: hello@lintelly.com
 
 ## Woher die Zahlen kommen
 
@@ -82,7 +83,7 @@ npm run build
 node packages/mcp/dist/lintelly-hr-mcp-server.mjs --http
 ```
 
-Aufbau: `packages/kern` (Werte, Rechner, Abläufe), `packages/mcp` (Server, Werkzeuge, Prompts, Ressourcen), `plugins/claude` (Plugin mit Skills),
+Aufbau: `packages/kern` (Werte, Rechner, Abläufe), `packages/mcp` (Server, Werkzeuge, Prompts, Ressourcen), `plugins/claude` (Plugin mit Skills), `plugins/agent` (Agent Plugins für Kiro),
 `ops` (Betrieb auf hr.lintelly.com), `server.json` (MCP Registry), `Dockerfile`. Mitmachen: `CONTRIBUTING.md`.
 
 ## Lizenz
