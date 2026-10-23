@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Neue Version an allen Stellen setzen: npm-Paket, server.json, Claude-Plugin, Agent-Plugin (Kiro), Cursor-Plugin, Marktplätze, Changelog-Überschrift.
+// Neue Version an allen Stellen setzen: npm-Paket, server.json, Claude-Plugin, Agent-Plugin (Kiro), Cursor-Plugin, Gemini-Erweiterung, Marktplätze, Changelog-Überschrift.
 // Aufruf: node scripts/version.mjs 0.2.0   Danach Changelog-Text ergänzen, committen, auf main pushen: die Pipeline macht das Release.
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -12,6 +12,7 @@ json("plugins/claude/.claude-plugin/plugin.json", (d) => { d.version = v; });
 json("plugins/agent/plugin.json", (d) => { d.version = v; });
 json("plugins/cursor/.cursor-plugin/plugin.json", (d) => { d.version = v; });
 json(".cursor-plugin/marketplace.json", (d) => { d.metadata.version = v; });
+json("gemini-extension.json", (d) => { d.version = v; });
 json(".claude-plugin/marketplace.json", (d) => { d.plugins[0].version = v; });
 const log = readFileSync("CHANGELOG.md", "utf8");
 if (!log.includes(`## ${v}`)) writeFileSync("CHANGELOG.md", log.replace(/\n## /, `\n## ${v}\n\n- \n\n## `));
