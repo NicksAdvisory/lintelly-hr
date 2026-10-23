@@ -5,6 +5,12 @@ updates:
     schedule: { interval: weekly }
     cooldown: { default-days: 7 }
     open-pull-requests-limit: 5
+    # Große Sprünge nur geplant: Node 22 (LTS) und TypeScript 5 bleiben, bis ein Wechsel ansteht.
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule: { interval: monthly }
@@ -13,3 +19,6 @@ updates:
     directory: "/"
     schedule: { interval: monthly }
     cooldown: { default-days: 7 }
+    ignore:
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
