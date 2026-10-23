@@ -12,7 +12,7 @@ Nicht erlaubt ohne schriftliche Zustimmung:
 - das Logo oder das App-Icon zu verwenden,
 - den Eindruck zu erwecken, ein geänderter Stand komme von Lintelly.
 
-Ein Fork bekommt also einen eigenen Namen und ein eigenes Symbol. Fragen: support@lintelly.com
+Ein Fork bekommt also einen eigenen Namen und ein eigenes Symbol. Fragen: hello@lintelly.com
 
 ---
 

@@ -7,7 +7,7 @@ ruft keine KI auf. Gezählt werden nur Aufrufe je Werkzeug und Tag mit groben B�
 
 Bitte **nicht** als öffentliches Issue. Stattdessen:
 - auf GitHub unter „Security“ > „Report a vulnerability“ (privat), oder
-- per Mail an support@lintelly.com mit dem Betreff „Sicherheit Lintelly HR“.
+- per Mail an hello@lintelly.com mit dem Betreff „Sicherheit Lintelly HR“.
 
 Wir antworten innerhalb von 72 Stunden, sagen, ob und wann wir es beheben, und nennen dich im Changelog, wenn du willst.
 
@@ -23,4 +23,4 @@ Nur die jeweils neueste Version auf npm, ghcr.io und unter https://hr.lintelly.c
 
 ---
 
-**Security.** Report vulnerabilities privately via GitHub "Report a vulnerability" or support@lintelly.com. We reply within 72 hours.
+**Security.** Report vulnerabilities privately via GitHub "Report a vulnerability" or hello@lintelly.com. We reply within 72 hours.
