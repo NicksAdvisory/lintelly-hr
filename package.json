@@ -5,7 +5,7 @@
   "workspaces": ["packages/kern", "packages/mcp"],
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "npm run test:werkbank && npm run test:website && vitest run",
+    "test": "npm run test:werkbank && npm run test:website && vitest run && node --test ops/*.test.mjs",
     "test:werkbank": "cd packages/kern/werkbank && vitest run",
     "test:website": "cd packages/kern/website && for t in scripts/test-*.mjs; do node $t > /dev/null || exit 1; done && echo 'Website-Tests grün'",
     "check": "npm run typecheck && npm test && node scripts/abgleich.mjs --pruefen",

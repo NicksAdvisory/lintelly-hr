@@ -42,3 +42,11 @@ describe("rechtsaenderungen", () => {
     expect(a.ergebnis.ausstehend.map((x: { kennung: string }) => x.kennung)).toEqual(expect.arrayContaining(["satzKvPv"]));
   });
 });
+
+describe("amtliche Quellen", () => {
+  it("jeder öffentliche Rechtswert mit Link zeigt auf eine amtliche Seite (Bedingung für den automatischen Merge)", async () => {
+    const { REGISTER, erlaubteQuelle } = await import("@/lib/regeln/register");
+    const fremd = REGISTER.filter((e) => e.rhythmus !== "Lintelly" && e.quelleUrl && !erlaubteQuelle(e.quelleUrl)).map((e) => `${e.id}: ${e.quelleUrl}`);
+    expect(fremd).toEqual([]);
+  });
+});
