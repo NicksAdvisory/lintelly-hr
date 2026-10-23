@@ -53,9 +53,9 @@ export function httpServer(o: { bremse?: Bremse } = {}): HttpServer {
     const pfad = (req.url ?? "/").split("?")[0];
     try {
       if (req.method === "OPTIONS") return senden(res, 204, "");
-      if (pfad === "/health" && req.method === "GET") return senden(res, 200, { ok: true, name: "lintelly-hr", version: VERSION, werkzeuge: WERKZEUGE.length });
+      if (pfad === "/health" && req.method === "GET") return senden(res, 200, { ok: true, name: "lintelly-hr-deutschland", version: VERSION, werkzeuge: WERKZEUGE.length });
       if (pfad === "/" && req.method === "GET") {
-        return senden(res, 200, { name: "Lintelly HR", mcp: "https://hr.lintelly.com/mcp", doku: "https://lintelly.com/hr", quellcode: "https://github.com/NicksAdvisory/lintelly-hr", version: VERSION });
+        return senden(res, 200, { name: "Lintelly HR", mcp: "https://hr.lintelly.com/mcp", doku: "https://lintelly.com/hr", quellcode: "https://github.com/NicksAdvisory/lintelly-hr-deutschland", version: VERSION });
       }
       if (pfad === "/.well-known/openai-apps-challenge" && req.method === "GET") {
         const t = process.env.OPENAI_APPS_CHALLENGE;

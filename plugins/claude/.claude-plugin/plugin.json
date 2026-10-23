@@ -1,6 +1,6 @@
 {
-  "name": "lintelly-hr",
-  "version": "0.1.3",
+  "name": "lintelly-hr-deutschland",
+  "version": "0.2.0",
   "description": "Personalabteilung für kleine Firmen in Deutschland: Fristen, Kosten, Krankheit, Mutterschutz, Kündigung, Verträge, mit Rechenweg und amtlicher Quelle. Ohne Anmeldung.",
   "author": {
     "name": "Lintelly",
@@ -8,7 +8,7 @@
     "url": "https://lintelly.com"
   },
   "homepage": "https://lintelly.com/hr",
-  "repository": "https://github.com/NicksAdvisory/lintelly-hr",
+  "repository": "https://github.com/NicksAdvisory/lintelly-hr-deutschland",
   "license": "MIT",
   "keywords": [
     "hr",

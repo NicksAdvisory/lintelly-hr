@@ -49,7 +49,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const monat = vormonat(new Date().toISOString().slice(0, 10));
   const tage = readdirSync(ordner).filter((f) => f.startsWith(monat) && f.endsWith(".json"))
     .map((f) => JSON.parse(readFileSync(path.join(ordner, f), "utf8")));
-  const sterne = await fetch("https://api.github.com/repos/NicksAdvisory/lintelly-hr").then((r) => r.json()).then((j) => j.stargazers_count).catch(() => undefined);
+  const sterne = await fetch("https://api.github.com/repos/NicksAdvisory/lintelly-hr-deutschland").then((r) => r.json()).then((j) => j.stargazers_count).catch(() => undefined);
   const text = bericht(monat, tage, { sterne });
   if (process.argv.includes("--probe")) console.log(text);
   else {

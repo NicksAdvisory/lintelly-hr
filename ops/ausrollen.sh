@@ -1,10 +1,10 @@
 #!/bin/bash
-# Holt das neueste GitHub-Release von NicksAdvisory/lintelly-hr und rollt es auf hr.lintelly.com aus (cron alle 10 Minuten).
+# Holt das neueste GitHub-Release von NicksAdvisory/lintelly-hr-deutschland und rollt es auf hr.lintelly.com aus (cron alle 10 Minuten).
 # Ablauf: Prüfsumme prüfen, neben die alte Fassung legen, umschalten, neu starten, /health prüfen, sonst zurück auf die alte.
 # Meldung per Telegram bei Erfolg und Fehler. Freigabe: _kanon/freigaben.md, Zeile „Lintelly HR“.
 set -euo pipefail
 D=/home/nick/lintelly-hr
-REPO=NicksAdvisory/lintelly-hr
+REPO=NicksAdvisory/lintelly-hr-deutschland
 DATEI=lintelly-hr-mcp-server.mjs
 . /home/nick/n8n/telegram.env
 melde() { curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" -d chat_id="$TELEGRAM_CHAT_ID" --data-urlencode text="$1" >/dev/null || true; }

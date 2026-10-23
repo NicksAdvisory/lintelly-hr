@@ -1,12 +1,12 @@
 {
-  "name": "@lintelly/hr-mcp",
-  "version": "0.1.3",
-  "description": "Lintelly HR: German HR department as an MCP server. Notice periods, employer costs, sick pay, maternity leave, contract clauses, HR workflows, with calculation and official source. No sign-in.",
-  "mcpName": "com.lintelly/hr",
+  "name": "@lintelly/hr-deutschland",
+  "version": "0.2.0",
+  "description": "Lintelly HR Deutschland: German employment law for small companies as an MCP server. Notice periods, employer costs, sick pay, contracts, HR workflows with calculation and official source. Germany only, no sign-in.",
+  "mcpName": "com.lintelly/hr-deutschland",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "lintelly-hr-mcp": "dist/lintelly-hr-mcp.mjs"
+    "lintelly-hr-deutschland": "dist/lintelly-hr-mcp.mjs"
   },
   "files": [
     "dist/lintelly-hr-mcp.mjs",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NicksAdvisory/lintelly-hr.git",
+    "url": "git+https://github.com/NicksAdvisory/lintelly-hr-deutschland.git",
     "directory": "packages/mcp"
   },
   "homepage": "https://lintelly.com/hr",

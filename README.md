@@ -1,7 +1,7 @@
-# Lintelly HR
+# Lintelly HR Deutschland
 
 **Eine Personalabteilung zum Fragen, für Gründer und kleine Firmen in Deutschland.** Lintelly HR ist ein offener MCP-Server für
-Claude, ChatGPT und jeden anderen Assistenten mit MCP: Fristen, Kosten, Pflichten, Abläufe, Schreiben und Vertragsbausteine,
+Claude, ChatGPT und jeden anderen Assistenten mit MCP, **nur für deutsches Arbeits- und Sozialversicherungsrecht**: Fristen, Kosten, Pflichten, Abläufe, Schreiben und Vertragsbausteine,
 jede Zahl mit Rechenweg und amtlicher Quelle. Ohne Anmeldung, ohne Konto, ohne gespeicherte Eingaben.
 
 > Allgemeine Auskunft, keine Rechtsberatung im Einzelfall.
@@ -24,18 +24,18 @@ jede Zahl mit Rechenweg und amtlicher Quelle. Ohne Anmeldung, ohne Konto, ohne g
 
 **Claude Code:**
 ```bash
-claude mcp add --transport http lintelly-hr https://hr.lintelly.com/mcp
+claude mcp add --transport http lintelly-hr-deutschland https://hr.lintelly.com/mcp
 ```
-oder als Plugin mit Skills: `/plugin marketplace add NicksAdvisory/lintelly-hr`, dann `/plugin install lintelly-hr@lintelly`.
+oder als Plugin mit Skills: `/plugin marketplace add NicksAdvisory/lintelly-hr-deutschland`, dann `/plugin install lintelly-hr-deutschland@lintelly`.
 
 **ChatGPT:** Einstellungen > Apps und Connectors > Entwicklermodus > Connector anlegen, Adresse `https://hr.lintelly.com/mcp`, Authentifizierung: keine.
 
 **Lokal (stdio), z. B. Claude Desktop oder Cursor:**
 ```json
-{ "mcpServers": { "lintelly-hr": { "command": "npx", "args": ["-y", "@lintelly/hr-mcp"] } } }
+{ "mcpServers": { "lintelly-hr-deutschland": { "command": "npx", "args": ["-y", "@lintelly/hr-deutschland"] } } }
 ```
 
-**Docker:** `docker run -i --rm ghcr.io/nicksadvisory/lintelly-hr` (stdio) oder als HTTP-Server `docker run --rm -p 8787:8787 ghcr.io/nicksadvisory/lintelly-hr --http`.
+**Docker:** `docker run -i --rm ghcr.io/nicksadvisory/lintelly-hr-deutschland` (stdio) oder als HTTP-Server `docker run --rm -p 8787:8787 ghcr.io/nicksadvisory/lintelly-hr-deutschland --http`.
 
 ## Werkzeuge
 
@@ -89,8 +89,8 @@ Herausgeber: Lintelly, lintelly.com. Lintelly begleitet Firmen ab 10 Beschäftig
 
 ## English
 
-**Lintelly HR** is an open MCP server that works like an HR department for small companies in Germany: notice periods, employer
+**Lintelly HR Deutschland** is an open MCP server for German employment law only. It works like an HR department for small companies in Germany: notice periods, employer
 costs, sick pay, maternity protection, dismissals, references, contract clauses and HR workflows, each figure with calculation and
 official source. No sign-in, no account, nothing stored. Connect `https://hr.lintelly.com/mcp` (Streamable HTTP) or run
-`npx -y @lintelly/hr-mcp` (stdio). Answers are in the language of the question. General information, not legal advice for an
+`npx -y @lintelly/hr-deutschland` (stdio). Answers are in the language of the question. General information, not legal advice for an
 individual case. Code MIT, content CC BY 4.0, name and logo reserved (`TRADEMARK.md`).

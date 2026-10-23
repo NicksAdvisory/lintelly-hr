@@ -63,8 +63,8 @@ jobs:
         run: |
           npm install -g npm@11 > /dev/null
           cp LICENSE README.md packages/mcp/
-          npm view "@lintelly/hr-mcp@$V" version > /dev/null 2>&1 && { echo "npm hat $V schon"; exit 0; }
-          npm publish -w @lintelly/hr-mcp --access public --provenance
+          npm view "@lintelly/hr-deutschland@$V" version > /dev/null 2>&1 && { echo "npm hat $V schon"; exit 0; }
+          npm publish -w @lintelly/hr-deutschland --access public --provenance
       - uses: docker/setup-buildx-action@v4
       - uses: docker/login-action@v3
         with: { registry: ghcr.io, username: "${{ github.actor }}", password: "${{ secrets.GITHUB_TOKEN }}" }
@@ -72,7 +72,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/nicksadvisory/lintelly-hr:${{ env.V }},ghcr.io/nicksadvisory/lintelly-hr:latest
+          tags: ghcr.io/nicksadvisory/lintelly-hr-deutschland:${{ env.V }},ghcr.io/nicksadvisory/lintelly-hr-deutschland:latest
       - name: MCP Registry (nur bestehender Eintrag, die erste Einreichung macht Nick)
         if: vars.MCP_REGISTRY == 'true'
         env: { SCHLUESSEL: "${{ secrets.MCP_REGISTRY_KEY }}" }

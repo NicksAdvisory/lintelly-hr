@@ -2,6 +2,12 @@
 
 Versionen nach SemVer. Jede Version geht über die Release-Pipeline auf npm, ghcr.io und hr.lintelly.com.
 
+## 0.2.0
+
+- Neuer Name: Lintelly HR Deutschland. Repo NicksAdvisory/lintelly-hr-deutschland, npm @lintelly/hr-deutschland (vorher @lintelly/hr-mcp), MCP Registry com.lintelly/hr-deutschland (vorher com.lintelly/hr), Docker ghcr.io/nicksadvisory/lintelly-hr-deutschland. Die Adresse hr.lintelly.com/mcp bleibt.
+- Nur deutsches Arbeits- und Sozialversicherungsrecht: jede Werkzeugbeschreibung beginnt mit „Germany only“, Fragen zu Österreich, der Schweiz und anderen Nachbarländern beantwortet der Server mit einem Hinweis statt einer Rechnung.
+- Rechtswerte aus dem Rechtsradar vom 23.10.2026 übernommen (Minijob-Pauschale ab 2027 ausstehend, Mindestausbildung geprüft).
+
 ## 0.1.3
 
 - Erstes npm-Paket `@lintelly/hr-mcp` (0.1.2 kam wegen des Tokens nicht auf npm).

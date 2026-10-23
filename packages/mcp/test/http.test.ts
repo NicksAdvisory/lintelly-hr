@@ -14,13 +14,13 @@ describe("HTTP", () => {
   it("/health antwortet mit Version und Zahl der Werkzeuge", async () => {
     const r = await fetch(`${basis}/health`);
     expect(r.status).toBe(200);
-    expect(await r.json()).toMatchObject({ ok: true, name: "lintelly-hr" });
+    expect(await r.json()).toMatchObject({ ok: true, name: "lintelly-hr-deutschland" });
   });
   it("POST /mcp initialize liefert JSON mit Servernamen und Anweisungen", async () => {
     const r = await fetch(`${basis}/mcp`, { method: "POST", headers: { ...KOPF, "x-forwarded-for": "10.0.0.1" }, body: JSON.stringify(INIT) });
     expect(r.status).toBe(200);
     const j = (await r.json()) as any;
-    expect(j.result.serverInfo.name).toBe("lintelly-hr");
+    expect(j.result.serverInfo.name).toBe("lintelly-hr-deutschland");
     expect(j.result.instructions).toMatch(/Lintelly/);
   });
   it("tools/call ohne Sitzung", async () => {

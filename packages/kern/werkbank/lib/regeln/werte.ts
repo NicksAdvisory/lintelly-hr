@@ -145,8 +145,6 @@ export const WERTE = {
   praktikumMindestlohn: { monate: 3, quelle: "§ 22 Abs. 1 Satz 2 Nr. 2 und 3 MiLoG (Ausnahme vom Mindestlohn nur für Praktika bis zu drei Monaten; Pflichtpraktikum nach Nr. 1 ohne Grenze; gelesen auf gesetze-im-internet.de am 11.10.2026)" },
   umlageTeilzeitFaktor: { bis10Std: { stunden: 10, faktor: 0.25 }, bis20Std: { stunden: 20, faktor: 0.5 }, bis30Std: { stunden: 30, faktor: 0.75 }, quelle: "§ 3 Abs. 1 Satz 6 AAG (gelesen auf gesetze-im-internet.de am 11.10.2026)" },
   umlageU1Grenze: { wert: 30, bestaetigt: false, quelle: "§ 3 Abs. 1 AAG (Arbeitgeber mit in der Regel nicht mehr als 30 Arbeitnehmern; Zählweise Kanzlei prüfen lassen)" },
-  /** Pauschale des Arbeitgebers für Minijobs: Krankenversicherung 13 %, Rentenversicherung 15 %, Pauschsteuer 2 %, ohne Umlagen. Noch nicht vom Lohnbüro bestätigt. */
-  minijobAgPauschale: { wert: 0.3, bestaetigt: false, quelle: "§ 249b SGB V (13 %), § 172 Abs. 3 SGB VI (15 %), § 40a Abs. 2 EStG (2 % Pauschsteuer), ohne Umlagen; Lohnbüro bestätigen lassen" },
   /** Vergleichswert Krankenquote in Dashboards und Bericht. Keine amtliche Zahl, eine Annahme von Lintelly. */
   krankenquoteVergleich: { wert: 5.5, bestaetigt: false, quelle: "Vergleichswert von Lintelly, kein amtlicher Wert (Branchenwert bei der Krankenkasse oder Kanzlei erfragen)" },
   /** Teamwerte zur Gesundheit erst ab dieser Gruppengröße (Art. 5 Abs. 1 lit. c, Art. 9 DSGVO). Keine Zahl aus dem Gesetz, in den Einstellungen änderbar. */
@@ -371,6 +369,13 @@ export const SATZ_AV: ZeitWert[] = [
   // Gelesen am 19.10.2026: Abs. 2 nennt den Satz ohne Befristung, er gilt 2027 weiter.
   { gueltigAb: "2027-01-01", wert: 0.026, quelle: "§ 341 Abs. 2 SGB III (2,6 %, ohne Befristung, gelesen am 19.10.2026)" },
 ];
+/**
+ * Pauschalen des Arbeitgebers für Minijobs zusammen, ohne Umlagen. Noch nicht vom Lohnbüro bestätigt (Register: Kanzlei prüfen).
+ * Ab 2027 ist die Krankenversicherung kein fester Satz mehr (AUSSTEHEND.minijobAgPauschale, Rechtsradar 23.10.2026).
+ */
+export const MINIJOB_AG_PAUSCHALE: ZeitWert[] = [
+  { gueltigAb: "2026-01-01", wert: 0.3, quelle: "§ 249b SGB V (13 %), § 172 Abs. 3 SGB VI (15 %), § 40a Abs. 2 EStG (2 % Pauschsteuer), ohne Umlagen; Lohnbüro bestätigen lassen" },
+];
 export const SATZ_KV_PV: ZeitWert[] = [
   { gueltigAb: "2026-01-01", wert: 0.211, quelle: "§ 241 SGB V (14,6 %), durchschnittlicher Zusatzbeitrag 2,9 %, § 55 Abs. 1 SGB XI (3,6 %); Zusatzbeitrag und Pflegesatz vom Lohnbüro bestätigen lassen" },
 ];
@@ -380,9 +385,11 @@ export const SATZ_KV_PV: ZeitWert[] = [
  * warnt bis zum Prüftermin 15.11. und wird erst danach rot. Mit der Bekanntgabe den Wert in die Reihe eintragen und den Eintrag hier löschen.
  */
 export type Ausstehend = { gueltigAb: string; quelle: string; erwartet: string };
-export const AUSSTEHEND: Record<"satzRvAv" | "satzKvPv", Ausstehend> = {
+export const AUSSTEHEND: Record<"satzRvAv" | "satzKvPv" | "minijobAgPauschale", Ausstehend> = {
   satzRvAv: { gueltigAb: "2027-01-01", quelle: "Beitragssatz der allgemeinen Rentenversicherung 2027: Rechtsverordnung der Bundesregierung mit Zustimmung des Bundesrates (§ 160 SGB VI, Anpassung nach § 158 SGB VI)", erwartet: "Verordnung im Herbst 2026" },
   satzKvPv: { gueltigAb: "2027-01-01", quelle: "Durchschnittlicher Zusatzbeitragssatz 2027: Bekanntgabe des Bundesministeriums für Gesundheit im Bundesanzeiger (§ 242a Abs. 2 SGB V); Pflegesatz nach § 55 SGB XI", erwartet: "Bundesanzeiger bis 01.11.2026" },
+  // Gelesen am 23.10.2026 in BGBl. 2026 I Nr. 228 (Art. 1 Nr. 64, Inkrafttreten Art. 8 Abs. 2).
+  minijobAgPauschale: { gueltigAb: "2027-01-01", quelle: "§ 249b Satz 1 SGB V in der Fassung von Art. 1 Nr. 64 des Gesetzes zur Stabilisierung der Beitragssätze in der gesetzlichen Krankenversicherung (BGBl. 2026 I Nr. 228, in Kraft 01.01.2027): Krankenversicherung mit dem allgemeinen Beitragssatz nach § 241 zuzüglich des durchschnittlichen Zusatzbeitragssatzes nach § 242a statt 13 %; Rentenversicherung und Pauschsteuer ändert das Gesetz nicht", erwartet: "mit dem durchschnittlichen Zusatzbeitragssatz 2027 (Bundesanzeiger bis 01.11.2026), Lohnbüro bestätigt" },
 };
 
 /** Text für Brief und KI-Anweisung: die Frist steht nur in WERTE.bemLoeschfrist. */

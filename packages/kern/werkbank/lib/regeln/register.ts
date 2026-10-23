@@ -8,7 +8,7 @@
  */
 import {
   AUFBEWAHRUNG, AUFBEWAHRUNG_MODULE, AUSSTEHEND, BBG_KV_MONAT, DIENSTWAGEN_BATTERIEABZUG_BIS, DIENSTWAGEN_BRUCHTEIL, BBG_RV_MONAT, DRV_RECHENGROESSEN_2027, FEIERTAGE,
-  MINDESTAUSBILDUNG, MINDESTLOHN, MINIJOB_GRENZE, SACHBEZUG_MITTAG, SATZ_AV, SATZ_KV_PV, SATZ_RV_AV, WERTE, type ZeitWert,
+  MINDESTAUSBILDUNG, MINDESTLOHN, MINIJOB_AG_PAUSCHALE, MINIJOB_GRENZE, SACHBEZUG_MITTAG, SATZ_AV, SATZ_KV_PV, SATZ_RV_AV, WERTE, type ZeitWert,
 } from "./werte";
 import { anteil, euro, zahl as dezimal } from "@/lib/format";
 import { BAG, EU_DSGVO, gii } from "./fundstellen";
@@ -278,7 +278,6 @@ const W: { [K in keyof typeof WERTE]: Angabe } = {
   praktikumMindestlohn: g("Praktikum: Mindestlohn ab mehr als drei Monaten", "Lohn und Sozialversicherung", "§ 22 Abs. 1 Satz 2 Nr. 1 bis 3 MiLoG", gii("milog", "22"), { p: "2026-10-11" }),
   umlageTeilzeitFaktor: g("Teilzeit in der Zählung für die Umlage U1", "Lohn und Sozialversicherung", "§ 3 Abs. 1 Satz 6 AAG", gii("aufag", "3"), { p: "2026-10-11" }),
   umlageU1Grenze: g("Umlage U1 bis", "Lohn und Sozialversicherung", "§ 1 Abs. 1 AAG", gii("aufag", "1")),
-  minijobAgPauschale: g("Minijob: Pauschalen des Arbeitgebers", "Lohn und Sozialversicherung", "§ 249b SGB V, § 172 Abs. 3 SGB VI, § 40a Abs. 2 EStG", gii("sgb_5", "249b")),
   krankenquoteVergleich: l("Vergleichswert Krankenquote", "Krankheit und BEM", "Lintelly-Vergleichswert, kein amtlicher Wert"),
   gesundheitMinGruppe: l("Kleinste Gruppe für Gesundheitswerte", "Datenschutz und Hinweisgeber", "Lintelly-Regel (Art. 5, Art. 9 DSGVO)"),
   gehaltAenderungZweiteBestaetigung: l("Gehaltsänderung: zweite Bestätigung ab Abweichung", "Lohn und Sozialversicherung"),
@@ -397,8 +396,10 @@ const REIHEN: Reihe[] = [
   { id: "satzAv", titel: "Beitragssatz Arbeitslosenversicherung", gebiet: "Lohn und Sozialversicherung", norm: "§ 341 Abs. 2 SGB III", quelleUrl: gii("sgb_3", "341"), werte: reihe(SATZ_AV, prozent), geprueftAm: G, hinweis: letzteQuelle(SATZ_AV) },
   { id: "satzKvPv", titel: "Beitragssatz Kranken- und Pflegeversicherung mit Zusatzbeitrag", gebiet: "Lohn und Sozialversicherung", norm: "§ 241 SGB V, § 242a SGB V, § 55 SGB XI", quelleUrl: `${BMG}beitraege`, weitereQuellen: [`${BMG}themen/pflege/online-ratgeber-pflege/die-pflegeversicherung/finanzierung`], pruefzahlen: ["14,6", "2,9", "3,6"], werte: [...reihe(SATZ_KV_PV, prozent), ausstehend(AUSSTEHEND.satzKvPv)], geprueftAm: G, hinweis: `${letzteQuelle(SATZ_KV_PV)}. Teile am Prüfdatum im Wortlaut gelesen: 14,6 % und 2,9 % (BMG), 3,6 % (BMG Pflege). Der Zusatzbeitrag ist ein Durchschnitt, die Kasse der Person setzt ihren eigenen Satz; § 55 Abs. 1 SGB XI nennt im Gesetzestext noch 3,4 %`, k: true },
   { id: "sachbezugMittag", titel: "Sachbezugswert Mittag- oder Abendessen je Tag (Essenmarke)", gebiet: "Lohn und Sozialversicherung", norm: "§ 2 Abs. 1 Nr. 2 und 3 SvEV", quelleUrl: gii("svev", "2"), werte: reihe(SACHBEZUG_MITTAG, euro), geprueftAm: S30, hinweis: letzteQuelle(SACHBEZUG_MITTAG), ...vorlaeufig(SACHBEZUG_MITTAG) },
+  { id: "minijobAgPauschale", titel: "Minijob: Pauschalen des Arbeitgebers", gebiet: "Lohn und Sozialversicherung", norm: "§ 249b SGB V, § 172 Abs. 3 SGB VI, § 40a Abs. 2 EStG", quelleUrl: gii("sgb_5", "249b"),
+    werte: [...reihe(MINIJOB_AG_PAUSCHALE, prozent), ausstehend(AUSSTEHEND.minijobAgPauschale)], geprueftAm: null, hinweis: letzteQuelle(MINIJOB_AG_PAUSCHALE), k: true },
   { id: "mindestausbildung", titel: "Mindestausbildungsvergütung je Beginnjahr (1. bis 4. Jahr)", gebiet: "Ausbildung und Werkstudium", norm: "§ 17 Abs. 2 BBiG, Bekanntmachung je Jahr", quelleUrl: "https://www.gesetze-im-internet.de/bbimindvergfbek_2027/BJNR11F0A0026.html", weitereQuellen: ["https://www.gesetze-im-internet.de/bbimindvergfbek_2026/BJNR0EB0A0025.html"],
-    werte: Object.entries(MINDESTAUSBILDUNG).map(([jahr, e]) => ({ gueltigAb: `${jahr}-01-01`, gueltigBis: `${jahr}-12-31`, wert: e.jahre.map((n) => euro(n)).join(", ") })), geprueftAm: G, hinweis: "Maßgeblich ist das Jahr des Ausbildungsbeginns" },
+    werte: Object.entries(MINDESTAUSBILDUNG).map(([jahr, e]) => ({ gueltigAb: `${jahr}-01-01`, gueltigBis: `${jahr}-12-31`, wert: e.jahre.map((n) => euro(n)).join(", ") })), geprueftAm: "2026-10-23", hinweis: "Maßgeblich ist das Jahr des Ausbildungsbeginns. Beträge 2026 und 2027 am 23.10.2026 im Wortlaut beider Bekanntmachungen gelesen (Rechtsradar, BGBl. 2026 I Nr. 287)" },
 ];
 
 const listeEintraege: RegisterEintrag[] = [

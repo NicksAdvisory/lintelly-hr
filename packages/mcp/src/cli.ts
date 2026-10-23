@@ -1,5 +1,5 @@
 /**
- * Start: ohne Schalter über stdio (npx @lintelly/hr-mcp, Claude Desktop, Claude Code), mit --http als Streamable HTTP
+ * Start: ohne Schalter über stdio (npx @lintelly/hr-deutschland, Claude Desktop, Claude Code), mit --http als Streamable HTTP
  * (hr.lintelly.com, Docker). Port aus --port oder PORT (Standard 8787), Adresse aus HOST (Standard 127.0.0.1).
  */
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";

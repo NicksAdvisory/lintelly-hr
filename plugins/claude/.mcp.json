@@ -1,5 +1,5 @@
 {
   "mcpServers": {
-    "lintelly-hr": { "type": "http", "url": "https://hr.lintelly.com/mcp" }
+    "lintelly-hr-deutschland": { "type": "http", "url": "https://hr.lintelly.com/mcp" }
   }
 }

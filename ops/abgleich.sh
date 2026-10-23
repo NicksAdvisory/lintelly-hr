@@ -20,7 +20,7 @@ holen() {
 mkdir -p "$Q"
 holen https://github.com/NicksAdvisory/lintelly-werkbank.git "$Q/werkbank" || fehler "Werkbank nicht geholt"
 holen https://github.com/NicksAdvisory/lintelly-web.git "$Q/website" || fehler "Website nicht geholt"
-holen https://github.com/NicksAdvisory/lintelly-hr.git "$R" || fehler "lintelly-hr nicht geholt"
+holen https://github.com/NicksAdvisory/lintelly-hr-deutschland.git "$R" || fehler "lintelly-hr nicht geholt"
 cd "$R" || exit 1
 
 WERKBANK="$Q/werkbank" WEBSITE="$Q/website" node scripts/abgleich.mjs > /dev/null || fehler "abgleich.mjs gescheitert"

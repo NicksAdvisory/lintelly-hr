@@ -9,7 +9,7 @@
     "test:werkbank": "cd packages/kern/werkbank && vitest run",
     "test:website": "cd packages/kern/website && for t in scripts/test-*.mjs; do node $t > /dev/null || exit 1; done && echo 'Website-Tests grün'",
     "check": "npm run typecheck && npm test && node scripts/abgleich.mjs --pruefen",
-    "build": "npm run build -w @lintelly/hr-mcp",
+    "build": "npm run build -w @lintelly/hr-deutschland",
     "abgleich": "node scripts/abgleich.mjs"
   },
   "devDependencies": {

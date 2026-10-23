@@ -1,16 +1,16 @@
 # Stammdaten für alle Verzeichnis-Einträge von Lintelly HR (Plan Abschnitt 6). Jede Einreichung nimmt die Texte von hier.
 # Stand je Verzeichnis: verzeichnisse/stand.csv. Texte ändern nur über diese Datei.
 
-name: Lintelly HR
-slug: lintelly-hr
+name: Lintelly HR Deutschland
+slug: lintelly-hr-deutschland
 herausgeber: Lintelly (Nick Schäfer, Frankfurt am Main)
 adresse_mcp: https://hr.lintelly.com/mcp
 transport: streamable-http
 anmeldung: keine
-npm: "@lintelly/hr-mcp"
-docker: ghcr.io/nicksadvisory/lintelly-hr
-mcp_registry: com.lintelly/hr
-repo: https://github.com/NicksAdvisory/lintelly-hr
+npm: "@lintelly/hr-deutschland"
+docker: ghcr.io/nicksadvisory/lintelly-hr-deutschland
+mcp_registry: com.lintelly/hr-deutschland
+repo: https://github.com/NicksAdvisory/lintelly-hr-deutschland
 doku: https://lintelly.com/hr
 datenschutz: https://lintelly.com/datenschutz#lintelly-hr
 support: hello@lintelly.com
@@ -28,12 +28,12 @@ kategorien: [Business, HR, Legal, Productivity]
 stichwoerter: [hr, human resources, germany, employment law, arbeitsrecht, payroll, small business, mcp]
 
 en:
-  kurz_80: "German HR department for small companies: notice periods, costs, contracts."
-  kurz_100: "German HR department for small companies: notice periods, costs, sick pay, contracts. No sign-in."
-  kurz_160: "An HR department for small companies in Germany: notice periods, employer costs, sick pay, contract clauses and workflows, with calculation and source."
-  kurz_200: "Lintelly HR works like an HR department for small companies in Germany: notice periods, employer costs, sick pay, maternity leave, contract clauses and workflows, each with calculation and source."
+  kurz_80: "German employment law for small firms: notice periods, costs, contracts."
+  kurz_100: "German employment law for small companies: notice periods, costs, sick pay, contracts. No sign-in."
+  kurz_160: "German employment law for small companies, like an HR department: notice periods, employer costs, sick pay, contracts, workflows, with calculation and source."
+  kurz_200: "German employment law for small companies, answered like an HR department: notice periods, employer costs, sick pay, maternity leave, contract clauses and workflows, with calculation and source."
   lang: |
-    Lintelly HR gives Claude, ChatGPT and other assistants the German employment law facts a small company needs, without an HR department.
+    Lintelly HR Deutschland gives Claude, ChatGPT and other assistants the German employment law facts a small company needs, without an HR department. Germany only: it covers German employment and social security law, nothing else.
 
     - Workflows with dates for a first hire, onboarding, leaving, sickness, pregnancy, parental leave, preparing a dismissal, end of probation, end of a fixed-term contract and monthly payroll.
     - Calculators for notice periods, the deadline for an unfair dismissal claim, probation, fixed-term contracts, maternity protection, parental leave, retention periods and break times.
@@ -52,12 +52,12 @@ en:
     - "What changes for employers on January 1st?"
 
 de:
-  kurz_80: "Personalabteilung für kleine Firmen: Fristen, Kosten, Verträge, mit Quelle."
-  kurz_100: "Personalabteilung für kleine Firmen: Fristen, Kosten, Krankheit, Verträge. Ohne Anmeldung."
-  kurz_160: "Personalabteilung zum Fragen für kleine Firmen in Deutschland: Fristen, Kosten, Krankheit, Mutterschutz, Verträge und Abläufe, mit Rechenweg und Quelle."
-  kurz_200: "Lintelly HR arbeitet wie eine Personalabteilung für Gründer und kleine Firmen: Kündigungsfristen, Arbeitgeberkosten, Entgeltfortzahlung, Mutterschutz, Vertragsbausteine und Abläufe, mit Quelle."
+  kurz_80: "Deutsches Arbeitsrecht für kleine Firmen: Fristen, Kosten, Verträge, mit Quelle."
+  kurz_100: "Deutsches Arbeitsrecht für kleine Firmen: Fristen, Kosten, Krankheit, Verträge. Ohne Anmeldung."
+  kurz_160: "Deutsches Arbeitsrecht für kleine Firmen, wie eine Personalabteilung: Fristen, Kosten, Krankheit, Mutterschutz, Verträge, Abläufe, mit Rechenweg und Quelle."
+  kurz_200: "Deutsches Arbeitsrecht für Gründer und kleine Firmen, wie eine Personalabteilung: Kündigungsfristen, Arbeitgeberkosten, Entgeltfortzahlung, Mutterschutz, Vertragsbausteine und Abläufe, mit Quelle."
   lang: |
-    Lintelly HR gibt Claude, ChatGPT und anderen Assistenten das Wissen einer Personalabteilung für kleine Firmen in Deutschland.
+    Lintelly HR Deutschland gibt Claude, ChatGPT und anderen Assistenten das Wissen einer Personalabteilung für kleine Firmen in Deutschland. Nur deutsches Arbeits- und Sozialversicherungsrecht.
 
     - Abläufe mit Daten: erste Einstellung, Eintritt, Austritt, Krankheit, Schwangerschaft, Elternzeit, Kündigung vorbereiten, Ende der Probezeit, Ende der Befristung, Monatsende Lohn.
     - Rechner für Kündigungsfrist, Klagefrist, Probezeit, Befristung, Mutterschutz, Elternzeit, Aufbewahrung und Pausen.
