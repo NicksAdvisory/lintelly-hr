@@ -59,8 +59,9 @@ jobs:
         # Ein npm-Fehler hält Docker und Registry nicht auf; das Registry lehnt eine fehlende npm-Version selbst ab.
         continue-on-error: true
         env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }
+        # Mit Trusted Publishing auf npm (OIDC aus GitHub Actions, ab npm 11.5.1) braucht es kein Token mehr; solange gilt NPM_TOKEN.
         run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then echo "::warning::NPM_TOKEN fehlt, npm übersprungen"; exit 0; fi
+          npm install -g npm@11 > /dev/null
           cp LICENSE README.md packages/mcp/
           npm view "@lintelly/hr-mcp@$V" version > /dev/null 2>&1 && { echo "npm hat $V schon"; exit 0; }
           npm publish -w @lintelly/hr-mcp --access public --provenance
