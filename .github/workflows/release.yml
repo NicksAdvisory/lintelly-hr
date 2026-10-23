@@ -56,6 +56,8 @@ jobs:
           gh release view "v$V" > /dev/null 2>&1 || gh release create "v$V" packages/mcp/dist/lintelly-hr-mcp-server.mjs packages/mcp/dist/lintelly-hr-mcp-server.mjs.sha256 \
             --title "Lintelly HR $V" --notes-file notizen.md --target "$GITHUB_SHA"
       - name: npm
+        # Ein npm-Fehler hält Docker und Registry nicht auf; das Registry lehnt eine fehlende npm-Version selbst ab.
+        continue-on-error: true
         env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then echo "::warning::NPM_TOKEN fehlt, npm übersprungen"; exit 0; fi
