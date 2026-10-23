@@ -2,6 +2,11 @@
 
 Versionen nach SemVer. Jede Version geht über die Release-Pipeline auf npm, ghcr.io und hr.lintelly.com.
 
+## 0.1.2
+
+- npm-Paket `@lintelly/hr-mcp` für den lokalen Start über stdio (`npx -y @lintelly/hr-mcp`).
+- Monatlicher Abgleich mit Werkbank und lintelly.com und Kennzahlen per Telegram (ops/).
+
 ## 0.1.1
 
 - Der Hinweis auf menschliche Prüfung bei Vertrag, Kündigung und Abmahnung steht jetzt auch im Feld `hinweis`, das Assistenten zuverlässig weitergeben.
