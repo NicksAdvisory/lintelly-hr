@@ -72,6 +72,6 @@ jobs:
         if: vars.MCP_REGISTRY == 'true'
         env: { SCHLUESSEL: "${{ secrets.MCP_REGISTRY_KEY }}" }
         run: |
-          curl -sL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          curl -sL "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
           ./mcp-publisher login dns --domain lintelly.com --private-key "$SCHLUESSEL"
           ./mcp-publisher publish
