@@ -44,7 +44,7 @@ export function bericht(monat, tage, extra) {
   ].join("\n");
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const ordner = process.argv[2];
   const monat = vormonat(new Date().toISOString().slice(0, 10));
   const tage = readdirSync(ordner).filter((f) => f.startsWith(monat) && f.endsWith(".json"))
