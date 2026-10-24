@@ -64,7 +64,7 @@ Heute geht es schon per Hand: `/plugin marketplace add NicksAdvisory/lintelly-hr
    - Langbeschreibung (2000 Zeichen): `en.lang` (1.710 Zeichen)
    - Kategorie: Business; Stichwörter aus `stichwoerter`
    - Logo: `verzeichnisse/lintelly-hr-icon-400.png` (oder 512)
-   - Datenschutz: https://lintelly.com/datenschutz#lintelly-hr, Doku: https://lintelly.com/hr, Support: hello@lintelly.com
+   - Datenschutz, Nutzungsbedingungen, Doku und Support liest das Portal aus `plugin.json` (lintelly.com/hr/doku, /hr/nutzungsbedingungen, Support hello@lintelly.com)
    - Beispiel-Prompts: `en.beispiele`
 3. Was im Plugin steckt (falls gefragt): 5 Skills (HR-Sprechstunde, Ersteinstellung, Krankmeldung, Kündigung vorbereiten, Monatsende), Befehl `/hr-woche`, ein MCP-Server (hr.lintelly.com/mcp, ohne Anmeldung). Keine Hooks, keine Skripte auf dem Rechner der Nutzer.
 4. Prüfung durch Anthropic (Sicherheits-Scan, dann ein Mensch). Danach kommen Updates von selbst aus GitHub, sobald `version` in `plugins/claude/.claude-plugin/plugin.json` steigt (macht das Versionsskript).

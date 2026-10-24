@@ -9,6 +9,9 @@
   },
   "homepage": "https://lintelly.com/hr",
   "privacyPolicyUrl": "https://lintelly.com/datenschutz#lintelly-hr",
+  "termsOfServiceUrl": "https://lintelly.com/hr/nutzungsbedingungen",
+  "documentationUrl": "https://lintelly.com/hr/doku",
+  "supportUrl": "https://lintelly.com/hr/doku#support",
   "repository": "https://github.com/NicksAdvisory/lintelly-hr-deutschland",
   "license": "MIT",
   "keywords": [
