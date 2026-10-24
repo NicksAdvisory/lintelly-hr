@@ -50,6 +50,26 @@ Formular ist im Browser-Fenster schon ausgefüllt (Tab x.ai). Falls nicht: https
    - Test-Konto: keins nötig, der Server ist offen
 3. Die Pflichten sind erfüllt: jedes Werkzeug hat Titel und readOnlyHint, Transport ist Streamable HTTP, Datenschutzerklärung ist verlinkt.
 
+## 4b. Anthropic Plugin-Verzeichnis (5 Minuten, gleiche Seite)
+
+Damit erscheint das Plugin in Claude Code unter `/plugin` für alle, ohne dass jemand die GitHub-Adresse kennen muss.
+Heute geht es schon per Hand: `/plugin marketplace add NicksAdvisory/lintelly-hr-deutschland`, dann `/plugin install lintelly-hr-deutschland@lintelly`.
+
+1. https://claude.ai/directory/manage öffnen, "Plugin bundle" wählen.
+2. Felder:
+   - Name: Lintelly HR Deutschland (Slug `lintelly-hr-deutschland`, danach nicht mehr änderbar)
+   - GitHub-Repo: https://github.com/NicksAdvisory/lintelly-hr-deutschland (öffentlich), Branch `main`, Plugin-Ordner `plugins/claude`
+   - Kurzbeschreibung (100 Zeichen): `en.kurz_100`
+   - Beschreibung (200 Zeichen): `en.kurz_200`
+   - Langbeschreibung (2000 Zeichen): `en.lang` (1.710 Zeichen)
+   - Kategorie: Business; Stichwörter aus `stichwoerter`
+   - Logo: `verzeichnisse/lintelly-hr-icon-400.png` (oder 512)
+   - Datenschutz: https://lintelly.com/datenschutz#lintelly-hr, Doku: https://lintelly.com/hr, Support: hello@lintelly.com
+   - Beispiel-Prompts: `en.beispiele`
+3. Was im Plugin steckt (falls gefragt): 5 Skills (HR-Sprechstunde, Ersteinstellung, Krankmeldung, Kündigung vorbereiten, Monatsende), Befehl `/hr-woche`, ein MCP-Server (hr.lintelly.com/mcp, ohne Anmeldung). Keine Hooks, keine Skripte auf dem Rechner der Nutzer.
+4. Prüfung durch Anthropic (Sicherheits-Scan, dann ein Mensch). Danach kommen Updates von selbst aus GitHub, sobald `version` in `plugins/claude/.claude-plugin/plugin.json` steigt (macht das Versionsskript).
+5. Claude sagen "Plugin eingereicht", dann trägt Claude es in `stand.csv` ein.
+
 ## 5. GitHub MCP Registry (eine Entscheidung)
 
 Es gibt nur einen Weg: ein Kommentar in https://github.com/github/github-mcp-server/discussions/1257. Der Text liegt fertig in `github-eintraege.md`.

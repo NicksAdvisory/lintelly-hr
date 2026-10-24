@@ -1,5 +1,5 @@
 {
-  "name": "lintelly-hr",
+  "name": "lintelly-hr-deutschland",
   "private": true,
   "type": "module",
   "workspaces": ["packages/kern", "packages/mcp"],
